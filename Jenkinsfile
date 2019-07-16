@@ -1,54 +1,58 @@
 pipeline{
 	agent any
 	stages{	
-		stage('pwd'){
-			steps{
-				sh "pwd"
-				sh "ls -alrt"
-			}
-		}
-		stage('clean nginx'){
+		stage('Clean Nginx'){
 			steps{
 				sh "kubectl delete -f ./nginx/config-map.yaml"
 				sh "kubectl delete -f ./nginx/deployment.yaml"
 			}
 		}
-		stage('clean mongo'){
+		stage('Clean Mongo'){
 			steps{
 				sh "kubectl delete -f ./mongo/."
 			}
 		}
-		stage('clean server'){
+		stage('Clean Server'){
 			steps {
 				sh "kubectl delete -f ./server/."
 			}
 		}
-		stage('clean client'){
+		stage('Clean Client'){
 			steps {
 				sh "kubectl delete -f ./client/deployment.yaml"
 				sh "kubectl delete -f ./client/service.yaml"
 			}
 		}
-		stage('run mongo'){
+		stage('Run Mongo'){
 			steps{
 				sh "kubectl apply -f ./mongo/."
 			}
 		}
-		stage('run server'){
+		stage('Run Server'){
 			steps{
 				sh "kubectl apply -f ./server/."
 			}
 		}
-		stage('run client'){
+		stage('Run Client'){
 			steps{
 				sh "kubectl apply -f ./client/deployment.yaml"
 				sh "kubectl apply -f ./client/service.yaml"
-
 			}
 		}
-		stage('run nginx'){
+		stage('Run Nginx'){
 			steps{
 				sh "kubectl apply -f ./nginx/."
+			}
+		}
+		stage('Build'){
+                        steps{
+                               sh "sudo docker-compose up --build -d"
+                               sh "sudo docker stack deploy --compose-file docker-compose.yaml stackdemo"
+                        }
+                }
+		stage('Push'){
+			steps{
+				sh "sudo docker-compose push"
 			}
 		}
 	}
