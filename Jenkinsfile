@@ -1,7 +1,7 @@
 pipeline{
 	agent any
 	environment {
-    		TAG = "\$(git rev-parse HEAD)"
+		TAG = "${git rev-parse HEAD}"
 	}
 	stages{	
 		stage('Get Hash'){
