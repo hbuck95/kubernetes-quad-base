@@ -25,7 +25,7 @@ services:
         depends_on:
             - mongo
     client:
-        image: hbuck/client:latest
+        image: hbuck/client:v2
         build:
             context: ./client
         ports:
