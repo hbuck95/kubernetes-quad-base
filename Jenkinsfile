@@ -3,13 +3,13 @@ pipeline{
 	stages{	
 		stage('Docker ps'){
 			steps{
-                        	sh "docker ps"
+                        	sh "sudo docker ps"
 	                }
 		}
 	
 		stage('Get Pods'){
 	                steps{
-	                        sh "kubectl get pods"
+	                        sh "sudo kubectl get pods"
 	                }
 	        }
 	}
