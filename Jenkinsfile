@@ -1,14 +1,6 @@
 pipeline{
 	agent any
-	stages{
-	#	stage('Azure Login'){
-	#		steps{
-	#			withCredentials([azureServicePrincipal('jenkins')]) {
- 	#				sh 'az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET -t $AZURE_TENANT_ID'
-	#			}
-	#		}
-	#	}
-	
+	stages{	
 		stage('Clean'){
 			steps{
                         	sh "kubectl delete -f client/."
