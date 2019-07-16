@@ -1,6 +1,21 @@
 pipeline{
 	agent any
 	stages{	
+                stage('Build Client'){
+                        steps{
+                                sh "sudo docker build ./client/. -t hbuck/client:latest"
+                        }
+                }
+                stage('Build Server'){
+                        steps{
+                                sh "sudo docker build ./server/. -t hbuck/server:latest"
+                        }
+                }
+                stage('Push'){
+                        steps{
+                                sh "sudo docker-compose push"
+                        }
+                }
 		stage('Clean Nginx'){
 			steps{
 				sh "kubectl delete -f ./nginx/config-map.yaml"
@@ -42,17 +57,6 @@ pipeline{
 		stage('Run Nginx'){
 			steps{
 				sh "kubectl apply -f ./nginx/."
-			}
-		}
-		stage('Build'){
-                        steps{
-                               sh "sudo docker-compose up --build -d"
-                               sh "sudo docker stack deploy --compose-file docker-compose.yaml stackdemo"
-                        }
-                }
-		stage('Push'){
-			steps{
-				sh "sudo docker-compose push"
 			}
 		}
 	}
