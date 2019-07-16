@@ -16,10 +16,10 @@ function RoutingExample() {
             <Link to="/">Home</Link>
           </button>
           <button>
-            <Link to="/Unit">How to override from the Child/Parent</Link>
+            <Link to="/Unit">Important button</Link>
           </button>
         
-<p>HelloWorld</p>
+<p>Hello World</p>
 
         <Route exact path="/" />
         <Route path="/Unit" component={Unit} />
