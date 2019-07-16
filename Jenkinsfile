@@ -20,13 +20,13 @@ pipeline{
                 }
                 stage('Build Client'){
                         steps{
-				sh '''sudo docker build ./client/. -t hbuck/client:$(tag)
+				sh '''sudo docker build ./client/. -t "hbuck/client:${tag}"
 				'''
                         }
                 }
                 stage('Build Server'){
                         steps{
-				sh '''sudo docker build ./client/. -t hbuck/server:$tag
+				sh '''sudo docker build ./client/. -t "hbuck/server:${tag}"
 				'''
                         }
                 }
