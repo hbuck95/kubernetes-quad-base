@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+data:
+  default.conf: |
+    server {
+        listen 80;
+        location / {
+                proxy_pass http://client:3000/;
+            }
+            location /server/ {
+                proxy_pass http://server:8080/;
+            }
+    }
+
+
