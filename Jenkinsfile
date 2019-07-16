@@ -9,8 +9,8 @@ pipeline{
 		}
 		stage('clean nginx'){
 			steps{
-				steps "kubectl delete -f ./nginx/config-map.yaml"
-				steps "kubectl delete -f ./nginx/deployment.yaml"
+				sh "kubectl delete -f ./nginx/config-map.yaml"
+				sh "kubectl delete -f ./nginx/deployment.yaml"
 			}
 		}
 		stage('clean mongo'){
