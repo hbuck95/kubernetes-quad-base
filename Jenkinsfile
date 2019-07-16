@@ -1,12 +1,6 @@
 pipeline{
 	agent any
 	stages{	
-		stage('Kill Nginx'){
-			steps{
-                        	sh "kubectl delete -f nginx/config-map.yaml"
-				sh "kubectl delete -f nginx/deployment.yaml"
-	                }
-		}
 		stage('Kill Client'){
 			steps{
                         	sh "kubectl delete -f client/."
