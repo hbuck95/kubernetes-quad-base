@@ -1,7 +1,42 @@
 pipeline{
+
+
+import groovy.json.JsonSlurper
+
+def getAcrLoginServer(def acrSettingsJson) {
+  def acrSettings = new JsonSlurper().parseText(acrSettingsJson)
+  return acrSettings.loginServer
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         agent any
         stages{
 		stage('Clean'){
+		stage('Azure Login'){
+			steps{
+				withCredentials([azureServicePrincipal('jenkins')]) {
+			        // login Azure
+				sh '''
+			        az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET -t $AZURE_TENANT_ID
+			        az account set -s $AZURE_SUBSCRIPTION_ID
+				'''
+				// get login server
+				def acrSettingsJson = sh script: "az acr show -n $acrName", returnStdout: true
+				def loginServer = getAcrLoginServer acrSettingsJson
+			}
+		}
 			steps{
 				sh "kubectl delete -f client/."
 				sh "kubectl delete -f server/."
