@@ -40,5 +40,11 @@ pipeline{
 
 			}
 		}
+		stage('run nginx'){
+			steps{
+				steps "kubectl delete -f ./nginx/config-map.yaml"
+				steps "kubectl delete -f ./nginx/deployment.yaml"
+				steps "kubectl apply -f ./nginx/config-map.yaml"
+				steps "kubectl apply -f ./nginx/deployment.yaml"
 	}
 }
