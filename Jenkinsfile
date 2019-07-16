@@ -48,7 +48,7 @@ pipeline{
 		}
 		stage('run nginx'){
 			steps{
-				steps "kubectl apply -f ./nginx/."
+				sh "kubectl apply -f ./nginx/."
 			}
 		}
 	}
