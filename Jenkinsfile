@@ -3,14 +3,19 @@ pipeline{
 	stages{	
 		stage('Get Hash'){
 			steps{
-				sh "tag=\$(git rev-parse HEAD)"
-				sh "echo $tag"
+				sh '''tag=$(git rev-parse HEAD)
+				'''
+				
+				sh '''echo $tag
+				'''
 			}
 		}
 		stage('Set Version'){
                         steps{
-                               	sh "sed -i \"s/{{TAG}}/\${tag}/g\" ./client/deployment.yaml"
-				sh "sed -i \"s/{{TAG}}/\${tag}/g\" ./server/deployment.yaml"
+                               	sh '''sed -i \"s/{{TAG}}/\${tag}/g\" ./client/deployment.yaml
+				'''
+				sh '''sed -i \"s/{{TAG}}/\${tag}/g\" ./server/deployment.yaml
+				'''
 			}
                 }
                 stage('Build Client'){
