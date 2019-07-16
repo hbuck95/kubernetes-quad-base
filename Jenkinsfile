@@ -19,7 +19,8 @@ pipeline{
 		}
 		stage('clean client'){
 			steps {
-				sh "kubectl delete -f ./client/."
+				sh "kubectl delete -f ./client/deployment.yaml"
+				sh "kubectl delete -f ./client/service.yaml"
 			}
 		}
 		stage('run mongo'){
