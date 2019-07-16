@@ -1,6 +1,12 @@
 pipeline{
 	agent any
 	stages{	
+		stage('pwd'){
+			steps{
+				sh "pwd"
+				sh "ls -alrt"
+			}
+		}
 		stage('Kill Client'){
 			steps{
                         	sh "kubectl delete -f client/."
