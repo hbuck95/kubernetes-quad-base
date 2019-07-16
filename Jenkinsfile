@@ -1,33 +1,28 @@
 pipeline{
 	agent any
+	environment {
+    		TAG = "$(git rev-parse HEAD)"
+	}
 	stages{	
 		stage('Get Hash'){
-			steps{
-				sh '''tag=$(git rev-parse HEAD)
-				'''
-				
-				sh '''echo $tag
-				'''
+			steps{				
+				sh '$TAG'
 			}
 		}
 		stage('Set Version'){
                         steps{
-                               	sh '''sed -i \"s/{{TAG}}/\${tag}/g\" ./client/deployment.yaml
-				'''
-				sh '''sed -i \"s/{{TAG}}/\${tag}/g\" ./server/deployment.yaml
-				'''
+				sh 'sed -i \"s/{{TAG}}/\${TAG}/g\" ./client/deployment.yaml'
+				sh 'sed -i \"s/{{TAG}}/\${TAG}/g\" ./server/deployment.yaml'
 			}
                 }
                 stage('Build Client'){
                         steps{
-				sh '''sudo docker build ./client/. -t "hbuck/client:${tag}"
-				'''
+				sh 'sudo docker build ./client/. -t hbuck/client:$TAG'
                         }
                 }
                 stage('Build Server'){
                         steps{
-				sh '''sudo docker build ./client/. -t "hbuck/server:${tag}"
-				'''
+				sh 'sudo docker build ./client/. -t "hbuck/server:$TAG'				
                         }
                 }
                 stage('Push'){
