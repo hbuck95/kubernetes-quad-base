@@ -3,7 +3,8 @@ pipeline{
 	stages{	
 		stage('Get Hash'){
 			steps{
-				sh "tag=\$(git rev-parse HEAD)"		
+				sh "tag=\$(git rev-parse HEAD)"
+				sh "echo $tag"
 			}
 		}
 		stage('Set Version'){
@@ -14,19 +15,22 @@ pipeline{
                 }
                 stage('Build Client'){
                         steps{
-				sh "sudo docker build ./client/. -t hbuck/client:$tag"
+				sh '''sudo docker build ./client/. -t hbuck/client:$tag"
+				'''
                         }
                 }
                 stage('Build Server'){
                         steps{
-				sh "sudo docker build ./client/. -t hbuck/server:$tag"
-                                sh "sudo docker build ./server/. -t hbuck/server:latest"
+				sh '''sudo docker build ./client/. -t hbuck/server:$tag"
+				'''
                         }
                 }
                 stage('Push'){
                         steps{
-                                sh "sudo docker push hbuck/client:$tag"
-				sh "sudo docker push hbuck/server:$tag"
+                                sh '''sudo docker push hbuck/client:$tag
+				'''
+				sh '''sudo docker push hbuck/server:$tag
+				'''
                         }
                 }
 		stage('Clean Nginx'){
