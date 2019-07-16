@@ -46,5 +46,7 @@ pipeline{
 				steps "kubectl delete -f ./nginx/deployment.yaml"
 				steps "kubectl apply -f ./nginx/config-map.yaml"
 				steps "kubectl apply -f ./nginx/deployment.yaml"
+			}
+		}
 	}
 }
