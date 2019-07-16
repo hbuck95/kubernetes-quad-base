@@ -46,6 +46,7 @@ node{
                          sh "kubectl apply -f client/."
                 }
         }
+    }
 }
 
 
