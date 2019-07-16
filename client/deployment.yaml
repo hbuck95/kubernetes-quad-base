@@ -15,6 +15,6 @@ spec:
         spec:
             containers:
             - name: client
-              image: hbuck/client:v1
+              image: hbuck/client:{{TAG}}
               ports:
               - containerPort: 3000
