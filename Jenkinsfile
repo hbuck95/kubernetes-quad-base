@@ -9,7 +9,7 @@ pipeline{
 	
 		stage('Get Pods'){
 	                steps{
-	                        sh "sudo kubectl get pods"
+	                        sh "kubectl get pods"
 	                }
 	        }
 	}
